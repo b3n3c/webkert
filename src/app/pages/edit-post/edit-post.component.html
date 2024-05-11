@@ -1,0 +1,20 @@
+<div class="edit-post-form">
+  <mat-card>
+    <mat-card-header>
+      <h1>Edit post</h1>
+    </mat-card-header>
+    <form [formGroup]="editPostForm" (ngSubmit)="updatePost()">
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description" style="height: 250px"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Video URL" formControlName="videoUrl">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Update Post</button>
+    </form>
+  </mat-card>
+</div>
+

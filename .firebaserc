@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "webkert-e4c9d": {
+      "hosting": {
+        "chef-vlog": [
+          "webkert-e4c9d"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "webkert-e4c9d"
+  }
+}

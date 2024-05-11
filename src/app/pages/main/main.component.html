@@ -1,0 +1,19 @@
+<div id="main-root">
+  <div>
+    <mat-card *ngFor="let post of posts$ | async" class="post-card">
+      <mat-card-header>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>{{ post.date }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ post.description }}</p>
+        <div>
+          <iframe width="560" height="315" [src]="getVideoUrl(post.videoUrl)" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button><a [href]="post.videoUrl" target="_blank">Open video in new tab</a></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

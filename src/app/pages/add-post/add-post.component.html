@@ -1,0 +1,18 @@
+<div class="add-post-form">
+  <mat-card>
+    <mat-card-header>
+      <h1>Add a post</h1>
+    </mat-card-header>
+    <mat-form-field>
+      <input matInput placeholder="Title" [formControl]="title">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [formControl]="description" style="height: 250px"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Video URL" [formControl]="videoUrl">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addPost()">Add Post</button>
+  </mat-card>
+</div>
+
