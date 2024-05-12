@@ -24,7 +24,8 @@ export class RegisterComponent {
   constructor(private location: Location, private authService: AuthService, private toastr: ToastrService) { }
 
   onSubmit() {
-    this.authService.signup(this.signUpForm.get('email')?.value as string, this.signUpForm.get('password')?.value as string).then(cred => {
+    this.authService.signup(this.signUpForm.get('email')?.value as string, this.signUpForm.get('password')?.value as string).
+    then(cred => {
       this.toastr.success('Successfully registered', 'Success');
     }).catch(error => {
       this.toastr.error('Error while trying to sign you up', 'Error');

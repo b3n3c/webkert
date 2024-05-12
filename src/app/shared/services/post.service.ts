@@ -29,7 +29,8 @@ export class PostService {
 
   async addPost(postData: Post): Promise<DocumentReference<DocumentData, DocumentData>> {
     const postsCollection = collection(this.firestore, 'posts');
-    const q = query(postsCollection, orderBy('post_id', 'desc'), limit(1));
+    const q = query(postsCollection, orderBy('post_id', 'desc'),
+      limit(1));
     const querySnapshot = await getDocs(q);
     let maxId = 0;
     querySnapshot.forEach((doc) => {
@@ -54,7 +55,8 @@ export class PostService {
 
   async getPostsByUid(uid: string, orderByDirection: 'asc' | 'desc' = 'desc'): Promise<Post[]> {
     const postsCollection = collection(this.firestore, 'posts');
-    const q = query(postsCollection, where('userUID', '==', uid), orderBy('date', orderByDirection));
+    const q = query(postsCollection, where('userUID', '==', uid),
+      orderBy('date', orderByDirection));
     const querySnapshot = await getDocs(q);
     const posts: Post[] = [];
     if (!querySnapshot.empty) {
@@ -73,8 +75,6 @@ export class PostService {
     }
     return posts;
   }
-
-
 
   async updatePost(postId: string, postData: any): Promise<void> {
     const postsCollection = collection(this.firestore, 'posts');
