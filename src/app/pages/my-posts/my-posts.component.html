@@ -1,5 +1,16 @@
 <div id="main-root">
   <div>
+    <mat-card class="sorting-card">
+      <mat-card-content id="filter">
+        <p>Order by date: </p>
+        <mat-form-field>
+          <mat-select [(value)]="orderByOption" (selectionChange)="onOrderByChange()">
+            <mat-option value="asc">Ascending</mat-option>
+            <mat-option value="desc">Descending</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
     <mat-card *ngFor="let post of posts$ | async" class="post-card">
       <mat-card-header>
         <mat-card-title>{{ post.title }}</mat-card-title>

@@ -20,7 +20,6 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    // fat-arrow
     this.routes = this.router.config.map(conf => conf.path) as string[];
 
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((evts: any) => {
@@ -31,7 +30,6 @@ export class AppComponent implements OnInit{
     });
 
     this.authService.isUserLoggedIn().subscribe((user: User | null) => {
-      console.log(user);
       this.loggedInUser = user;
       localStorage.setItem('user', JSON.stringify(this.loggedInUser));
     }, error => {
@@ -42,7 +40,6 @@ export class AppComponent implements OnInit{
   }
 
   changePage(selectedPage: string) {
-    // this.page = selectedPage;
     this.router.navigateByUrl(selectedPage);
   }
 

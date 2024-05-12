@@ -1,6 +1,5 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {Post} from "../../shared/models/post.model";
-import {Firestore} from "@angular/fire/firestore";
 import {PostService} from "../../shared/services/post.service";
 import {Router} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
@@ -14,20 +13,25 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 export class MyPostsComponent {
   private postsSubject = new BehaviorSubject<Post[]>([]);
   posts$ = this.postsSubject.asObservable();
-  firestore: Firestore = inject(Firestore);
+  orderByOption: 'asc' | 'desc' = 'desc';
+  user = JSON.parse(localStorage.getItem('user') as string);
 
   constructor(private sanitizer: DomSanitizer, private postService: PostService, private router: Router) {
-    const user = JSON.parse(localStorage.getItem('user') as string);
-    this.loadPosts(user.uid);
+
+    this.loadPosts(this.user.uid);
   }
 
-  async loadPosts(uid: string) {
+  async loadPosts(uid: string, orderByDirection: 'asc' | 'desc' = 'desc') {
     try {
-      const posts = await this.postService.getPostsByUid(uid);
+      const posts = await this.postService.getPostsByUid(uid, orderByDirection);
       this.postsSubject.next(posts);
     } catch (error) {
       console.error('Error loading posts: ', error);
     }
+  }
+
+  onOrderByChange() {
+    this.loadPosts(this.user.uid, this.orderByOption);
   }
 
   editPost(post: Post): void {
@@ -47,7 +51,7 @@ export class MyPostsComponent {
 
   getVideoUrl(videoUrl: string): SafeResourceUrl {
     const videoId = videoUrl.split('v=')[1];
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 }

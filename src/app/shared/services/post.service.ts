@@ -7,11 +7,9 @@ import {
   doc,
   DocumentData,
   DocumentReference,
-  DocumentSnapshot,
   Firestore,
-  getDoc, getDocs, limit, orderBy,
-  query,
-  updateDoc, where
+  getDocs, limit, orderBy,
+  query, updateDoc, where
 } from "@angular/fire/firestore";
 import {Observable} from "rxjs";
 import {Post} from "../models/post.model";
@@ -23,9 +21,10 @@ export class PostService {
 
   constructor(private firestore: Firestore) {}
 
-  getPosts(): Observable<any[]> {
+  getPosts(orderByDirection: 'asc' | 'desc' = 'desc'): Observable<any[]> {
     const postsCollection = collection(this.firestore, 'posts');
-    return collectionData(postsCollection);
+    const q = query(postsCollection, orderBy('date', orderByDirection));
+    return collectionData(q);
   }
 
   async addPost(postData: Post): Promise<DocumentReference<DocumentData, DocumentData>> {
@@ -53,9 +52,9 @@ export class PostService {
     }
   }
 
-  async getPostsByUid(uid: string): Promise<Post[]> {
+  async getPostsByUid(uid: string, orderByDirection: 'asc' | 'desc' = 'desc'): Promise<Post[]> {
     const postsCollection = collection(this.firestore, 'posts');
-    const q = query(postsCollection, where('userUID', '==', uid));
+    const q = query(postsCollection, where('userUID', '==', uid), orderBy('date', orderByDirection));
     const querySnapshot = await getDocs(q);
     const posts: Post[] = [];
     if (!querySnapshot.empty) {
@@ -74,6 +73,7 @@ export class PostService {
     }
     return posts;
   }
+
 
 
   async updatePost(postId: string, postData: any): Promise<void> {
