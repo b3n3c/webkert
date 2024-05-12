@@ -4,6 +4,7 @@ import {PostService} from "../../shared/services/post.service";
 import {Router} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-my-posts',
@@ -16,7 +17,8 @@ export class MyPostsComponent {
   orderByOption: 'asc' | 'desc' = 'desc';
   user = JSON.parse(localStorage.getItem('user') as string);
 
-  constructor(private sanitizer: DomSanitizer, private postService: PostService, private router: Router) {
+  constructor(private sanitizer: DomSanitizer, private postService: PostService,
+              private router: Router, private toastr: ToastrService) {
 
     this.loadPosts(this.user.uid);
   }
@@ -26,7 +28,7 @@ export class MyPostsComponent {
       const posts = await this.postService.getPostsByUid(uid, orderByDirection);
       this.postsSubject.next(posts);
     } catch (error) {
-      console.error('Error loading posts: ', error);
+      this.toastr.error('Error while loading Posts', 'Error');
     }
   }
 
@@ -39,13 +41,12 @@ export class MyPostsComponent {
   }
 
   async deletePost(post: Post): Promise<void> {
-    console.log(post);
     const user = JSON.parse(localStorage.getItem('user') as string);
     try {
       await this.postService.deletePost(post.post_id!);
       await this.loadPosts(user.uid);
     } catch (error) {
-      console.error('Error deleting post: ', error);
+      this.toastr.error('Error while deleting Post', 'Error');
     }
   }
 

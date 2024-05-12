@@ -4,6 +4,7 @@ import {NavigationEnd, Router} from "@angular/router";
 import {filter} from "rxjs";
 import {AuthService} from "./shared/services/auth.service";
 import {User} from "@angular/fire/auth";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit{
   routes: Array<string> = [];
   loggedInUser: User | null | undefined;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -33,7 +34,7 @@ export class AppComponent implements OnInit{
       this.loggedInUser = user;
       localStorage.setItem('user', JSON.stringify(this.loggedInUser));
     }, error => {
-      console.error(error);
+      this.toastr.error('Error while trying to log you in', 'Error');
       localStorage.setItem('user', JSON.stringify('null'));
     });
 
@@ -55,9 +56,9 @@ export class AppComponent implements OnInit{
 
   logout(_?: boolean) {
     this.authService.logout().then(() => {
-      console.log('Logged out successfully.');
+      this.toastr.success('Logged out', 'Success');
     }).catch(error => {
-      console.error(error);
+      this.toastr.error('Error while trying to log you out', 'Error');
     });
   }
 }

@@ -4,6 +4,7 @@ import {Post} from "../../shared/models/post.model";
 import {FormControl} from "@angular/forms";
 import {DateFormatPipe} from "../../shared/pipes/date-format.pipe";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-add-post',
@@ -15,11 +16,10 @@ export class AddPostComponent {
   description = new FormControl('');
   videoUrl = new FormControl('');
 
-  constructor(private router: Router, private postService: PostService) {}
+  constructor(private router: Router, private postService: PostService, private toastr: ToastrService) {}
 
   addPost(): void {
     const user = JSON.parse(localStorage.getItem('user') as string);
-    console.log(user);
     const postData: Post = {
       title: this.title.value ? this.title.value : '',
       description: this.description.value ? this.description.value : '',
@@ -30,10 +30,11 @@ export class AddPostComponent {
 
     this.postService.addPost(postData)
       .then(() => {
+        this.toastr.success('Post saved successfully', 'Success');
         this.router.navigateByUrl('/main');
       })
       .catch(error => {
-        console.error('Error adding post: ', error);
+        this.toastr.error('Error while saving post', 'Error');
       });
   }
 }

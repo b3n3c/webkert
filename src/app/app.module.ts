@@ -32,6 +32,9 @@ import { DateFormatPipe } from './shared/pipes/date-format.pipe';
 import { MyPostsComponent } from './pages/my-posts/my-posts.component';
 import {MenuComponent} from "./shared/menu/menu.component";
 import {MatOption, MatSelect} from "@angular/material/select";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import {MatOption, MatSelect} from "@angular/material/select";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     provideFirebaseApp(() => initializeApp({
       "projectId": "webkert-e4c9d",
       "appId": "1:909562521327:web:8ebaa387a96c19bb80dd1a",

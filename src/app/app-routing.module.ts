@@ -6,19 +6,22 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'add-post',
-    loadChildren: () => import('./pages/add-post/add-post.module').then(m => m.AddPostModule)
+    loadChildren: () => import('./pages/add-post/add-post.module').then(m => m.AddPostModule),
+    canActivate: [authGuard]
   },
   {
     path: 'edit-post/:id',
-    loadChildren: () => import('./pages/edit-post/edit-post.module').then(m => m.EditPostModule)
+    loadChildren: () => import('./pages/edit-post/edit-post.module').then(m => m.EditPostModule),
+    canActivate: [authGuard]
   },
   {
     path: 'my-posts',
-    loadChildren: () => import('./pages/my-posts/my-posts.module').then(m => m.MyPostsModule)
+    loadChildren: () => import('./pages/my-posts/my-posts.module').then(m => m.MyPostsModule),
+    canActivate: [authGuard]
   },
   {
     path: '',

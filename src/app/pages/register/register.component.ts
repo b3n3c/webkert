@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Location} from "@angular/common";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register',
@@ -20,14 +21,13 @@ export class RegisterComponent {
     })
   });
 
-  constructor(private location: Location, private authService: AuthService) { }
+  constructor(private location: Location, private authService: AuthService, private toastr: ToastrService) { }
 
   onSubmit() {
-    console.log(this.signUpForm.value);
     this.authService.signup(this.signUpForm.get('email')?.value as string, this.signUpForm.get('password')?.value as string).then(cred => {
-      console.log(cred);
+      this.toastr.success('Successfully registered', 'Success');
     }).catch(error => {
-      console.error(error);
+      this.toastr.error('Error while trying to sign you up', 'Error');
     });
   }
 

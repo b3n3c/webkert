@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../shared/services/auth.service";
-import {Post} from "../../shared/models/post.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -18,17 +18,16 @@ export class LoginComponent implements OnDestroy{
 
   loading: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService) { }
 
   async login() {
     this.loading = true;
 
     this.authService.login(this.email.value as string, this.password.value as string).then(cred => {
-      console.log(cred);
       this.router.navigateByUrl('/main');
       this.loading = false;
     }).catch(error => {
-      console.error(error);
+      this.toastr.error('Failed to login', 'Email or password is wrong');
       this.loading = false;
     });
   }
