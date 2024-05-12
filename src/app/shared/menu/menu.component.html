@@ -3,16 +3,24 @@
     <mat-icon>login</mat-icon>
     <span>Login</span>
   </a>
-  <a mat-list-item routerLink="/login" (click)="close(true)" *ngIf="loggedInUser">
-    <mat-icon>logout</mat-icon>
-    <span>Logout</span>
-  </a>
-  <a mat-list-item routerLink="/register" (click)="close()">
+  <a mat-list-item routerLink="/register" (click)="close()" *ngIf="!loggedInUser">
     <mat-icon>app_registration</mat-icon>
     <span>Register</span>
   </a>
-  <a mat-list-item routerLink="/main" (click)="close()">
-    <mat-icon>grid_view</mat-icon>
-    <span>Main</span>
+  <a mat-list-item routerLink="/main" (click)="close()" *ngIf="loggedInUser">
+    <mat-icon>home</mat-icon>
+    <span>Home</span>
+  </a>
+  <a mat-list-item routerLink="/my-posts" (click)="close()" *ngIf="loggedInUser">
+    <mat-icon>edit</mat-icon>
+    <span>My posts</span>
+  </a>
+  <a mat-list-item routerLink="/add-post" (click)="close()" *ngIf="loggedInUser">
+    <mat-icon>add</mat-icon>
+    <span>Create a post</span>
+  </a>
+  <a mat-list-item routerLink="/login" (click)="close(true)" *ngIf="loggedInUser">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
   </a>
 </mat-nav-list>

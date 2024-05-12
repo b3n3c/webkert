@@ -6,17 +6,13 @@
   height: 100%;
 }
 
-.main_component {
-  height: 100vh;
-}
-
 form div {
   padding: 5px 5px 5px 5px;
 }
 
 form {
   display: inline-grid;
-  width: 50%;
+  width: 100%;
   align-self: center;
 }
 
@@ -31,4 +27,14 @@ form {
 
 button {
   width: 100px;
+}
+
+mat-card {
+  padding: 30px 60px;
+}
+
+mat-card-header {
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }

@@ -31,6 +31,7 @@ import { EditPostComponent } from './pages/edit-post/edit-post.component';
 import { DateFormatPipe } from './shared/pipes/date-format.pipe';
 import { MyPostsComponent } from './pages/my-posts/my-posts.component';
 import {MenuComponent} from "./shared/menu/menu.component";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -78,7 +79,9 @@ import {MenuComponent} from "./shared/menu/menu.component";
     MatCardSubtitle,
     MatCardContent,
     MatCardActions,
-    MatCardHeader
+    MatCardHeader,
+    MatSelect,
+    MatOption
   ],
   providers: [
     provideAnimationsAsync()

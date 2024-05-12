@@ -1,6 +1,8 @@
-<div class="main_component">
-  <div class="div-flex">
-    <h1>Register an account!</h1>
+<div class="div-flex">
+  <mat-card>
+    <mat-card-header>
+      <h1>Register to CHEF VLOG</h1>
+    </mat-card-header>
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <mat-label for="email">Email: </mat-label>
@@ -25,12 +27,13 @@
         </mat-form-field>
       </div>
       <div>
-                <span class="buttons">
-                    <button mat-raised-button color="primary" type="submit">Register</button>
-                </span><span class="buttons">
-                    <button mat-raised-button color="primary" (click)="goBack()">Back</button>
-                </span>
+          <span class="buttons">
+            <button mat-raised-button color="primary" type="submit">Register</button>
+          </span>
+        <span class="buttons">
+            <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+          </span>
       </div>
     </form>
-  </div>
+  </mat-card>
 </div>

@@ -1,8 +1,7 @@
 import {Component, inject} from '@angular/core';
-import {collection, collectionData, Firestore} from "@angular/fire/firestore";
-import {Observable} from "rxjs";
+import {Firestore} from "@angular/fire/firestore";
+import {map, Observable} from "rxjs";
 import {Post} from "../../shared/models/post.model";
-import {Router} from "@angular/router";
 import {PostService} from "../../shared/services/post.service";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
@@ -13,20 +12,42 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 })
 export class MainComponent {
   posts$: Observable<Post[]>;
+  sortedPosts$: Observable<Post[]>;
+  orderByOption: string = 'desc';
   firestore: Firestore = inject(Firestore);
 
-  constructor(private sanitizer: DomSanitizer, private postService: PostService, private router: Router) {
+  constructor(private sanitizer: DomSanitizer, private postService: PostService) {
     this.posts$ = this.postService.getPosts();
+    this.sortedPosts$ = this.posts$;
   }
 
-  editPost(post: Post): void {
-    console.log(post);
-    this.router.navigate(['/edit-post', post.post_id]);
+  onOrderByChange() {
+    switch (this.orderByOption) {
+      case 'desc':
+        this.sortedPosts$ = this.posts$.pipe(
+          map(posts => posts.sort((a, b) => {
+            const aDate = a.date.split('-').map(Number);
+            const bDate = b.date.split('-').map(Number);
+            return new Date(bDate[0], bDate[1] - 1, bDate[2]).getTime() - new Date(aDate[0], aDate[1] - 1, aDate[2]).getTime();
+          }))
+        );
+        break;
+      case 'asc':
+        this.sortedPosts$ = this.posts$.pipe(
+          map(posts => posts.sort((a, b) => {
+            const aDate = a.date.split('-').map(Number);
+            const bDate = b.date.split('-').map(Number);
+            return new Date(aDate[0], aDate[1] - 1, aDate[2]).getTime() - new Date(bDate[0], bDate[1] - 1, bDate[2]).getTime();
+          }))
+        );
+        break;
+    }
   }
+
 
   getVideoUrl(videoUrl: string): SafeResourceUrl {
     const videoId = videoUrl.split('v=')[1];
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 }

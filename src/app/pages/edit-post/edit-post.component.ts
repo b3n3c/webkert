@@ -54,7 +54,7 @@ export class EditPostComponent implements OnInit{
     this.postService.updatePost(this.postId, updatedPost)
       .then(() => {
         console.log('Post updated successfully!');
-        this.router.navigate(['/']);
+        this.router.navigate(['/my-posts']);
       })
       .catch(error => {
         console.error('Error updating post: ', error);

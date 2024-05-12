@@ -8,6 +8,7 @@ import {Location} from "@angular/common";
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
+
 export class RegisterComponent {
   signUpForm = new FormGroup({
     email: new FormControl(''),
