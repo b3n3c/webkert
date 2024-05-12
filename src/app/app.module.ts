@@ -54,13 +54,13 @@ import {CommonModule} from "@angular/common";
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     provideFirebaseApp(() => initializeApp({
-      "projectId": "webkert-e4c9d",
-      "appId": "1:909562521327:web:8ebaa387a96c19bb80dd1a",
-      "storageBucket": "webkert-e4c9d.appspot.com",
-      "apiKey": "AIzaSyAQmoA0uR3ymZ2Qr5qrto_MYxbxPtZ1zpE",
-      "authDomain": "webkert-e4c9d.firebaseapp.com",
-      "messagingSenderId": "909562521327",
-      "measurementId": "G-HBB7LT4EGP"
+      "projectId": "project-id",
+      "appId": "app-id",
+      "storageBucket": "storafgeBucket",
+      "apiKey": "api key",
+      "authDomain": "domain",
+      "messagingSenderId": "sender",
+      "measurementId": "mesurement id"
     })),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
